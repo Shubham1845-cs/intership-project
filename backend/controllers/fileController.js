@@ -12,7 +12,9 @@ export const uploadandparse=async (req,res)=>
 
         // read the file from the buffer
         const workbook=XLSX.read(req.file.buffer,{type:"buffer"})
-        
+
+        // read only the first sheet
+        const sheetName=workbook.sheetNames[0]
     } catch (error) {
         
     }
