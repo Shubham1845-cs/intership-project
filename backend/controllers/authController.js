@@ -1,4 +1,4 @@
-const user=require("../Model/user")
+const User=require("../Model/user")
 const jwt=require("jsonwebtoken");
 
 
@@ -13,7 +13,7 @@ export const registration=async (req,res)=>
         let existing=await user.findOne({email})
         if(existing)
         {
-            res.status(400).json({
+          return  res.status(400).json({
                 message:"user already in use with this email"
             })
         }
