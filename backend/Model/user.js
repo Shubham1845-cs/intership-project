@@ -16,5 +16,5 @@ const Userschema=mongoose.Schema({
     }
 })
 // Create a model for the user schema
-const User=mongoose.model("User",Userschema);
-export default User;
+const user=mongoose.model("user",Userschema);
+export default user;
