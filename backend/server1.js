@@ -1,4 +1,4 @@
-
+{/* 
 require('dotenv').config();         // 1. Load .env variables
 const express = require('express');
 const cors = require('cors');
@@ -28,3 +28,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+*/}
