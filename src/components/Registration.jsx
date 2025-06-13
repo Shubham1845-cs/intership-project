@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 function Registration() {
     const {
@@ -16,6 +17,7 @@ function Registration() {
           if(responce.status==201)
           {
             alert("registration success");
+            console.log("registration success");
           }
         
       } catch (error) {
@@ -60,7 +62,7 @@ function Registration() {
               placeholder="Email"
               className="w-full px-4 py-2 border border-gray-300 rounded"
             />
-            {errors.name && <div>{errors.email.message}</div>}
+            {errors.email && <div>{errors.email.message}</div>}
             <input
                id="password"
                {...register("password",
@@ -78,16 +80,16 @@ function Registration() {
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded"
             />
-            {errors.name && <div>{errors.password.message}</div>}
+            {errors.password && <div>{errors.password.message}</div>}
             <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800">
               Register
             </button>
           </form>
           <p className="mt-4 text-sm text-center text-gray-600">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-600 hover:underline">
+            <Link to="/login" className="text-blue-600 hover:underline">
               Login here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

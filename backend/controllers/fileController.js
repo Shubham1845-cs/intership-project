@@ -1,5 +1,5 @@
-import uploadHistory from "../Model/UploadHistory";
-const XLSX=require('xlsx');
+import uploadHistory from "../Model/UploadHistory.js";
+import XLSX from "xlsx";
 
 export const uploadandparse=async (req,res)=>
 {
@@ -14,7 +14,7 @@ export const uploadandparse=async (req,res)=>
         const workbook=XLSX.read(req.file.buffer,{type:"buffer"})
 
         // read only the first sheet
-        const sheetName=workbook.sheetNames[0];
+        const sheetName=workbook.SheetNames[0];
         const workSheet=workbook.Sheets[sheetName];
 
         // convert the sheet to json
@@ -34,7 +34,7 @@ export const uploadandparse=async (req,res)=>
         await newHistory.save();
 
         //return headers and raw rows to the frontend
-        res.status.json({headers,rows});
+        res.status.json({header,rows});
 
 
     } catch (error) {
