@@ -27,5 +27,4 @@ const uploadHistorySchema=mongoose.Schema({
         required:true
       }
 }) 
-const uploadHistory=mongoose.model("uploadHistory",uploadHistorySchema);
-export default uploadHistory;
+export default mongoose.model("uploadHistory",uploadHistorySchema);

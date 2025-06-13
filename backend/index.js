@@ -1,23 +1,36 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
-const app= express();
-const port = process.env.PORT || 3000;
-const MONGO_URI= process.env.MONGO_URI ;
- // connect to mongodb
+import cors from 'cors';
 
-  try {
-    mongoose.connect(MONGO_URI,{
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    console.log("conneted to the databases")
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-  }
-app.listen(port,()=>
-{
-    console.log("example of the listening  express "+port);
-}
-)
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 3001;
+const MONGO_URI = process.env.MONGO_URI;
+
+const authRoutes = require('./routes/authRoutes');
+const fileRoutes = require('./routes/fileRoutes');
+
+// middleware
+app.use(express.json());
+app.use(cors());
+
+// mount routes
+app.use('/api/auth', authRoutes);
+app.use('/api/file', fileRoutes);
+
+// connect to MongoDB and start server
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('✅ Connected to MongoDB successfully!');
+  app.listen(port, () => {
+    console.log(`🚀 Server is running at http://localhost:${port}`);
+  });
+})
+.catch((error) => {
+  console.error('❌ Failed to connect to MongoDB:', error.message);
+});

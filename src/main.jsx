@@ -7,7 +7,7 @@ import Layout from './Layout.jsx'
 import Home from './components/Home.jsx'
 import About from './components/About.jsx'
 import Contact from './components/Contact.jsx'
-import Login from './components/Login.jsx'
+import Login from './components/Login.jsx' 
 import Registration from './components/Registration.jsx'
 
 const router=createBrowserRouter(
