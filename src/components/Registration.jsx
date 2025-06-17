@@ -9,19 +9,20 @@ function Registration() {
       handleSubmit,
       formState:{errors}
     }=useForm();
+
     const submitcall= async(data)=>
     {
       console.log(data);
       try {
-         const responce =await axios.post("http://localhost:3001/api/auth/register",data);
-          if(responce.status==201)
+        const response = await axios.post("http://localhost:3001/api/auth/registration", data);
+          if(response.status === 201)
           {
             alert("registration success");
-            console.log("registration success");
+            
           }
         
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     }
   return (

@@ -19,10 +19,14 @@ function Home() {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
+    const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:3000/upload', {
+      const res = await fetch('http://localhost:3001/api/file/upload', {
         method: 'POST',
         body: formData,
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
       });
       const data = await res.json();
       console.log('Upload success:', data);
@@ -62,6 +66,7 @@ function Home() {
           <section className="bg-white rounded-lg shadow p-6 border border-indigo-100">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Upload Excel File</h2>
             <div className="flex flex-col md:flex-row items-center gap-4">
+              
               <input
                 type="file"
                 accept=".csv, .xlsx, .xls"
@@ -74,6 +79,7 @@ function Home() {
               >
                 Upload
               </button>
+             
             </div>
           </section>
 

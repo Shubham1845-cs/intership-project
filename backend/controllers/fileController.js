@@ -34,7 +34,7 @@ export const uploadandparse=async (req,res)=>
         await newHistory.save();
 
         //return headers and raw rows to the frontend
-        res.status.json({header,rows});
+        res.status(200).json({header,rows});
 
 
     } catch (error) {

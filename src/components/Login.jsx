@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -8,9 +9,20 @@ function Login() {
     formState: { errors }
   }=useForm();
 
-  const submitcall=(data)=>
+  const submitcall=async(data)=>
   {
     console.log(data)
+    try {
+        const responce=  await axios.post('http://localhost:3001/api/auth/login',data);
+        if(responce.status==201)
+        {
+             alert("login successfully");
+              localStorage.setItem("token", responce.data.token);
+
+        }
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <div>
@@ -20,17 +32,40 @@ function Login() {
             Login to Your Account
           </h2>
           <form className="space-y-4" onSubmit={handleSubmit(submitcall)}>
-            <input
+           <input
+            id="email"
+              {...register("email",{
+                required:"email  is required",
+                pattern:{
+                  value:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message:"Invalid email address "
+                }
+
+              })}
               type="email"
               placeholder="Email"
               className="w-full px-4 py-2 border border-gray-300 rounded"
             />
-            <input
+            {errors.email && <div>{errors.email.message}</div>}
+           <input
+               id="password"
+               {...register("password",
+                {
+                  required:"password is required",
+                  minLength:
+                  {
+                    value:6,
+                    message:"password must be at least 6 characters"
+                  }
+
+                }
+               )}
               type="password"
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded"
             />
-            <button  className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            {errors.password && <div>{errors.password.message}</div>}
+            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
               Login
             </button>
           </form>
