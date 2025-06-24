@@ -1,15 +1,18 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Registration() {
+  const navigate= useNavigate();
+
     const {
       register,
       handleSubmit,
       formState:{errors}
     }=useForm();
 
+     
     const submitcall= async(data)=>
     {
       console.log(data);
@@ -18,6 +21,7 @@ function Registration() {
           if(response.status === 201)
           {
             alert("registration success");
+            navigate('/login')
             
           }
         

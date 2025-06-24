@@ -7,6 +7,7 @@ import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import fileRoutes from './Router/fileRoutes.js';
+import contactRouter from './Router/contactRouter.js'
 
 dotenv.config();
 console.log("JWT_SECRET is:", process.env.JWT_SECRET);
@@ -30,6 +31,7 @@ app.use(express.json());
 // mount routes
 app.use('/api/auth',authRoutes);
 app.use('/api/file', fileRoutes);
+app.use('/api/contact',contactRouter);
 
 // connect to MongoDB and start server
 mongoose.connect(MONGO_URI, {

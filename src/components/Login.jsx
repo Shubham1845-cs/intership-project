@@ -1,13 +1,16 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 function Login() {
   const{
     register,
     handleSubmit,
     formState: { errors }
   }=useForm();
+
+  const Navigate=useNavigate();
 
   const submitcall=async(data)=>
   {
@@ -16,11 +19,15 @@ function Login() {
         const responce=  await axios.post('http://localhost:3001/api/auth/login',data);
         if(responce.status==201)
         {
+             localStorage.setItem("token", responce.data.token);
              alert("login successfully");
-              localStorage.setItem("token", responce.data.token);
+             Navigate('/home')
+              
 
         }
+        
     } catch (error) {
+      alert("login failed");
       console.log(error)
     }
   }
@@ -65,8 +72,9 @@ function Login() {
               className="w-full px-4 py-2 border border-gray-300 rounded"
             />
             {errors.password && <div>{errors.password.message}</div>}
-            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            <button  type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
               Login
+            
             </button>
           </form>
           <p className="mt-4 text-sm text-center text-gray-600">

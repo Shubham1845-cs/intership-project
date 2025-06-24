@@ -1,6 +1,33 @@
+import axios from 'axios';
 import React from 'react'
+import { useForm } from 'react-hook-form'
+
 
 function Contact() {
+    const {
+    register,
+    handleSubmit,
+    reset,
+    formState:{errors}
+    
+    }=useForm();
+
+    const contactSubmit=async(data)=>
+    {
+    try {
+        const response=await axios.post('http://localhost:3001/api/contact/submit',data);
+        if(response.status===201)
+        {
+            alert("contact data send succesfully")
+            console.log(data)
+            reset();
+        }
+       
+    } catch (error) {
+        console.error(error)
+    }
+    }
+
   return (
     <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
             <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -38,7 +65,7 @@ function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    Acme Inc, Street, State, Postal Code
+                                    Pune, Street, State, Postal Code
                                 </div>
                             </div>
 
@@ -60,7 +87,7 @@ function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    +44 1234567890
+                                    +91 7499766945
                                 </div>
                             </div>
 
@@ -87,18 +114,19 @@ function Contact() {
                             </div>
                         </div>
 
-                        <form className="p-6 flex flex-col justify-center">
+                        <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit(contactSubmit)}>
                             <div className="flex flex-col">
                                 <label htmlFor="name" className="hidden">
                                     Full Name
                                 </label>
                                 <input
-                                    type="name"
-                                    name="name"
+                                    {...register("name",{ required:"name is required"})}
+                                    type="name" 
                                     id="name"
                                     placeholder="Full Name"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
+                                {errors.name && <div> {errors.name.message} </div>}
                             </div>
 
                             <div className="flex flex-col mt-2">
@@ -106,12 +134,14 @@ function Contact() {
                                     Email
                                 </label>
                                 <input
+                                     {...register("email",{required:"email is required"})}
                                     type="email"
                                     name="email"
                                     id="email"
                                     placeholder="Email"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
+                                {errors.email && <div> {errors.email.message} </div>}
                             </div>
 
                             <div className="flex flex-col mt-2">
@@ -119,13 +149,16 @@ function Contact() {
                                     Number
                                 </label>
                                 <input
+                                     {...register("number",{required:"number is required"})}
                                     type="tel"
-                                    name="tel"
+                                    name="number"
                                     id="tel"
-                                    placeholder="Telephone Number"
+                                    placeholder="Phone Number"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
+                                {errors.number && <div> {errors.number.message} </div>}
                             </div>
+                           
 
                             <button
                                 type="submit"

@@ -2,8 +2,10 @@ import User from "../Model/user.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
+
 // Registration
 export const register = async (req, res) => {
+   
   try {
     const { name, email, password } = req.body;
 
@@ -21,12 +23,17 @@ export const register = async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
+   
       return  res.status(201).json({
       token,
       message: "User registered successfully",
-      user: { id: user._id, name: user.name, email: user.email }
-    });
+      user: { id: user._id, name: user.name, email: user.email },
+      
+      
+    },
+   
+   
+);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Server error during registration" });
@@ -48,6 +55,7 @@ export const login = async (req, res) => {
 
     res.status(201).json({
       token,
+      message: "User logged in successfully",
       user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (error) {

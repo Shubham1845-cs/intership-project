@@ -29,12 +29,12 @@ export const uploadandparse=async (req,res)=>
             userID:req.user.id,
             fileName:req.file.originalname,
             headers:header,
-            rawData:rows
+            rows:rows
         })
         await newHistory.save();
 
         //return headers and raw rows to the frontend
-        res.status(200).json({header,rows});
+        res.status(200).json({headers:header,rows});
 
 
     } catch (error) {
@@ -43,3 +43,15 @@ export const uploadandparse=async (req,res)=>
         
     }
 }
+export const  gethistory=async(req,res)=>
+{
+    try {
+        
+        const history=await uploadHistory.find({userID:req.user._id}).sort({uploadDate:-1})
+        res.status(200).json(history)
+    } catch (error) {
+        console.log("error to fetch the history",error);
+        res.status(500).json({message:"error fetching upload history"})
+    }
+}
+    
