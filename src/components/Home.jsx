@@ -28,8 +28,15 @@ function Home() {
 
   }
   const fileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
+    const token = localStorage.getItem("token");
+    if(token)
+    {
+      setSelectedFile(e.target.files[0]);
+    }
+    else{
+      alert("your are not authorized")
+    }
+  };  
 
   
    
@@ -78,7 +85,7 @@ function Home() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-64 bg-white shadow-lg hidden md:block">
         <div className="p-6 text-2xl font-bold text-indigo-600  border-indigo-100">
-          Analytics Platform
+         Excel Analytics Platform
         </div>
        
       </aside>
@@ -113,12 +120,12 @@ function Home() {
               Generate Graph
             </h2>
             <div className="mb-4">
-              <button onClick={()=>setchartType("Bar")} className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700" >Bar Graph</button>
-              <button onClick={()=>setchartType("Line")} className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700">Line Graph</button>
-              <button onClick={()=>setchartType("Pie")}className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700">pie Graph</button>
-              <button onClick={()=>setchartType("Doughnut")}className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700">Doughnut Graph</button>
-              <button onClick={()=>setchartType("Radar")}className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700">Radar Graph</button>
-              <button onClick={()=>setchartType("Scatter")}className=" rounded-lg border border-gray-200 bg-sky-400 text-white p-2 mr-4 hover:bg-sky-700">Scatter Graph</button>
+              <button onClick={()=>setchartType("Bar")} className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700" >Bar Graph</button>
+              <button onClick={()=>setchartType("Line")} className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700">Line Graph</button>
+              <button onClick={()=>setchartType("Pie")}className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700">pie Graph</button>
+              <button onClick={()=>setchartType("Doughnut")}className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700">Doughnut Graph</button>
+              <button onClick={()=>setchartType("Radar")}className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700">Radar Graph</button>
+              <button onClick={()=>setchartType("Scatter")}className=" rounded-lg border border-gray-200 bg-black text-white p-2 mr-4 hover:bg-sky-700">Scatter Graph</button>
             </div>
             </div>
             
@@ -132,11 +139,12 @@ function Home() {
                   onChange={(e) => setX(e.target.value)}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 >
-                  {headers?.map?.((header, i) => (
+                  
+                  {headers.map((header, i) => (
                     <option key={i} value={header}>
                       {header}
                     </option>
-                  ))}
+                  ))}                 
                 </select>
               </div>
               <div>
@@ -144,14 +152,15 @@ function Home() {
                   Y Axis:
                 </label>
                 <select
-                  onChange={(e) => setY(e.target.value)}
+                  onChange={(e) =>setY(e.target.value) }
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 >
+                  
                   {headers.map((header, i) => (
                     <option key={i} value={header}>
                       {header}
                     </option>
-                  ))}
+                  ))}  
                 </select>
               </div>
             </div>

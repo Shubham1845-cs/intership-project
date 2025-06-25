@@ -10,7 +10,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center">
               <img
                 src={logo}
-                className="mr-3 h-20 rounded-lg"
+                className="mr-3 h-16 rounded-lg"
                 alt="Logo"
               />
             </Link>
